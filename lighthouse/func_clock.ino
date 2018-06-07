@@ -1,6 +1,8 @@
+unsigned long lastClockPrintMillis;
 
-void clockSet(uint16_t year, uint16_t month, uint16_t day, uint16_t hour, uint16_t minute, uint16_t second) {
-  RtcDateTime currentTime = RtcDateTime(year,month,day,hour,minute,second);
+void clockSet(int unixTime) {
+  // Subtract 946684800 as RtcDateTime uses time from 2000/01/01 00:00:00
+  RtcDateTime currentTime = RtcDateTime(unixTime - 946684800);
   rtcObject.SetDateTime(currentTime);
 }
 
@@ -8,8 +10,7 @@ RtcDateTime clockGetDateTime(){
   return rtcObject.GetDateTime();
 }
 
-unsigned long lastClockPrintMillis;
-void clockTimePrint(){
+void clockPrintTime(){
   if(currentMillis - lastClockPrintMillis >= 1000){
   
   RtcDateTime currentTime = rtcObject.GetDateTime();

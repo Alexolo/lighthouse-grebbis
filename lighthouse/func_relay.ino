@@ -2,6 +2,7 @@
 void relaySetup() {
   pinMode(RELAY_PIN, RELAY_PIN_MODE);
   digitalWrite(RELAY_PIN, RELAY_PIN_VALUE);
+  Serial.println("Relay setup Completed");
 }
 
 void relayToggle() {
@@ -27,7 +28,7 @@ int relayBlinkOffPeriod;
 unsigned long relayBlinkStartMillis;
 unsigned long relayBlinkToggleMillis;
 
-void setRelayBlinkIntervals(int blinkNum, int blinkOn, int blinkOff) {
+void relaySetBlinkIntervals(int blinkNum, int blinkOn, int blinkOff) {
   if (!relayBlink) {
     Serial.println("NEW SET OF BLINKS");
     Serial.println(blinkNum);
@@ -60,7 +61,7 @@ void updateNextBlinkInterval() {
   }
 }
 
-void doRelayBlinkIntervals() {
+void relayDoBlinkIntervals() {
   if (relayBlink) {
     if (currentMillis >= relayBlinkToggleMillis) {
       if (relayBlinkCurrentlyOn) {
